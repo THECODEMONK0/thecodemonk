@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Code Monk</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+ font-family:'Playfair Display',serif;
+ background:#000;
+ color:#fff;
+ overflow-x:hidden;
+}
+
+/* NAV */
+nav{
+ position:fixed;
+ top:0;
+ width:100%;
+ display:flex;
+ justify-content:center;
+ gap:50px;
+ padding:18px;
+ backdrop-filter:blur(12px);
+ background:rgba(0,0,0,0.4);
+ z-index:1000;
+}
+
+nav a{
+ color:#fff;
+ text-decoration:none;
+ font-size:18px;
+ position:relative;
+}
+
+nav a::after{
+ content:"";
+ position:absolute;
+ left:0;
+ bottom:-5px;
+ width:0%;
+ height:2px;
+ background:#00f7ff;
+ transition:0.3s;
+}
+
+nav a:hover::after{
+ width:100%;
+}
+
+/* HERO */
+.hero{
+ height:100vh;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+ position:relative;
+ overflow:hidden;
+}
+
+.hero::after{
+ content:"";
+ position:absolute;
+ bottom:0;
+ width:100%;
+ height:150px;
+ background:linear-gradient(to bottom,transparent,#000);
+}
+
+.video-bg, .fallback-img{
+ position:absolute;
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ z-index:-2;
+}
+
+.video-bg{opacity:0.5;}
+
+.title{
+ font-size:clamp(50px,10vw,110px);
+}
+
+/* BUTTON */
+.cta-btn{
+ margin-top:20px;
+ padding:15px 40px;
+ border:none;
+ border-radius:50px;
+ background:linear-gradient(45deg,#00f7ff,#6a11cb);
+ color:#fff;
+ cursor:pointer;
+ transition:0.3s;
+}
+
+.cta-btn:hover{
+ transform:scale(1.1);
+ box-shadow:0 0 25px #00f7ff;
+}
+
+/* SECTIONS */
+section{
+ position:relative;
+ padding:120px 20px;
+ text-align:center;
+}
+
+/* SMOOTH BLEND */
+section::before{
+ content:"";
+ position:absolute;
+ top:-120px;
+ width:100%;
+ height:120px;
+ background:linear-gradient(to bottom,transparent,#000);
+}
+
+/* SERVICES */
+#about{
+ overflow:hidden;
+}
+
+.about-video{
+ position:absolute;
+ width:100%;
+ height:100%;
+ object-fit:cover;
+ opacity:0.25;
+ filter:brightness(0.7);
+ z-index:-3;
+}
+
+#liquid-canvas{
+ position:absolute;
+ width:100%;
+ height:100%;
+ top:0;
+ left:0;
+ z-index:-2;
+ filter:blur(40px);
+ opacity:0.6;
+}
+
+/* CARDS */
+.cards{
+ display:flex;
+ justify-content:center;
+ gap:20px;
+ flex-wrap:wrap;
+}
+
+.card{
+ width:260px;
+ padding:25px;
+ border-radius:20px;
+ background:rgba(255,255,255,0.05);
+ backdrop-filter:blur(15px);
+ transition:0.4s;
+}
+
+.card:hover{
+ transform:scale(1.1);
+ box-shadow:0 0 25px #00f7ff;
+}
+
+/* CONTACT */
+#contact{
+ position:relative;
+ overflow:hidden;
+ background:transparent;
+}
+
+/* CONTACT ANIMATION */
+#contact-canvas{
+ position:absolute;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ z-index:-1;
+ filter:blur(60px);
+ opacity:0.5;
+}
+
+input,textarea{
+ margin:10px;
+ padding:12px;
+ width:260px;
+ background:#111;
+ border:none;
+ color:#fff;
+ border-radius:8px;
+}
+
+/* SEND BUTTON */
+.send-btn{
+ position:relative;
+ padding:14px 35px;
+ border:none;
+ border-radius:40px;
+ background:linear-gradient(45deg,#00f7ff,#6a11cb);
+ color:#fff;
+ cursor:pointer;
+ overflow:hidden;
+}
+
+.send-btn::after{
+ content:"";
+ position:absolute;
+ width:50%;
+ height:100%;
+ top:0;
+ left:-60%;
+ background:linear-gradient(120deg,transparent,rgba(255,255,255,0.7),transparent);
+ transform:skewX(-20deg);
+ transition:0.5s;
+}
+
+.send-btn:hover::after{
+ left:120%;
+}
+
+/* POPUP */
+#popup{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ height:100%;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ background:rgba(0,0,0,0.6);
+ backdrop-filter:blur(10px);
+ z-index:9999;
+}
+
+.popup-box{
+ padding:40px;
+ background:rgba(255,255,255,0.08);
+ border-radius:20px;
+ text-align:center;
+ box-shadow:0 0 30px #00f7ff;
+ animation:pop 0.4s ease;
+}
+
+@keyframes pop{
+ from{transform:scale(0.5);opacity:0}
+ to{transform:scale(1);opacity:1}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+ <a href="#home">Home</a>
+ <a href="#about">About</a>
+ <a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="home">
+
+ <img class="fallback-img" src="https://images.unsplash.com/photo-1518770660439-4636190af475">
+
+ <video class="video-bg" autoplay muted loop playsinline>
+  <source src="bg.mp4">
+ </video>
+
+ <h1 class="title">The Code Monk</h1>
+ <p>We Build Digital Experiences</p>
+
+ <button class="cta-btn" onclick="scrollToContact()">Get Started</button>
+
+</div>
+
+<!-- SERVICES -->
+<section id="about">
+
+ <video class="about-video" autoplay muted loop playsinline>
+  <source src="service.mp4">
+ </video>
+
+ <canvas id="liquid-canvas"></canvas>
+
+ <h2>Our Services</h2>
+
+ <div class="cards">
+  <div class="card">Website Development</div>
+  <div class="card">App Development</div>
+  <div class="card">UI/UX Design</div>
+ </div>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+
+ <canvas id="contact-canvas"></canvas>
+
+ <h2>Contact Me</h2>
+
+ <form id="form">
+
+  <input type="text" placeholder="Your Name" required><br>
+  <input type="email" placeholder="Your Email" required><br>
+  <input type="tel" placeholder="Mobile Number" required><br>
+  <textarea placeholder="Message" required></textarea><br>
+
+  <button class="send-btn" type="submit">Send Message</button>
+
+ </form>
+
+</section>
+
+<!-- POPUP -->
+<div id="popup">
+ <div class="popup-box">
+  <h2>✔ Message Sent</h2>
+  <p>We will contact you soon 🚀</p>
+ </div>
+</div>
+
+<script>
+
+// SCROLL
+function scrollToContact(){
+ document.getElementById("contact").scrollIntoView({behavior:"smooth"});
+}
+
+// LIQUID (SERVICES)
+const canvas=document.getElementById("liquid-canvas");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+ canvas.width=window.innerWidth;
+ canvas.height=document.getElementById("about").offsetHeight;
+}
+resize();
+
+let t=0;
+
+function draw(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ for(let i=0;i<3;i++){
+  ctx.beginPath();
+
+  for(let x=0;x<canvas.width;x++){
+   let y=Math.sin(x*0.01+t+i)*40+canvas.height/2+i*30;
+   ctx.lineTo(x,y);
+  }
+
+  let g=ctx.createLinearGradient(0,0,canvas.width,0);
+  g.addColorStop(0,"#00f7ff");
+  g.addColorStop(0.5,"#6a11cb");
+  g.addColorStop(1,"#ff00cc");
+
+  ctx.strokeStyle=g;
+  ctx.lineWidth=40;
+  ctx.stroke();
+ }
+
+ t+=0.01;
+ requestAnimationFrame(draw);
+}
+draw();
+
+// CONTACT ANIMATION
+const c=document.getElementById("contact-canvas");
+const cc=c.getContext("2d");
+
+function resizeC(){
+ c.width=window.innerWidth;
+ c.height=document.getElementById("contact").offsetHeight;
+}
+resizeC();
+
+let ct=0;
+
+function drawC(){
+ cc.clearRect(0,0,c.width,c.height);
+
+ let g=cc.createRadialGradient(c.width/2,c.height/2,50,c.width/2,c.height/2,400);
+ g.addColorStop(0,"rgba(0,247,255,0.3)");
+ g.addColorStop(1,"transparent");
+
+ cc.fillStyle=g;
+
+ let x=Math.sin(ct)*200+c.width/2;
+ let y=Math.cos(ct)*150+c.height/2;
+
+ cc.beginPath();
+ cc.arc(x,y,300,0,Math.PI*2);
+ cc.fill();
+
+ ct+=0.01;
+ requestAnimationFrame(drawC);
+}
+drawC();
+
+// FORM POPUP
+const form=document.getElementById("form");
+const popup=document.getElementById("popup");
+
+form.addEventListener("submit",(e)=>{
+ e.preventDefault();
+
+ popup.style.display="flex";
+ form.reset();
+
+ setTimeout(()=>{
+  popup.style.display="none";
+ },2000);
+});
+
+window.addEventListener("resize",()=>{
+ resize();
+ resizeC();
+});
+
+</script>
+
+</body>
+</html>
